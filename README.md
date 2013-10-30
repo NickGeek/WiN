@@ -10,16 +10,21 @@ You can see everything and vote/comment at our public Trello here: https://trell
 NOTE: This is still in super early development so expect everything to change.
 
 **Sending a message**
+
 To send a message run "python send.py" and fill out your desired username, the target's username and the message.
 
 **Receiving messages**
-Run "python client.py myusername"
+
+Run "python client.py *myusername*"
 
 ###What do I need to run this?
 Currently WiN is only avalible on GNU/Linux. It requires Python 2.7 and Zenity to run.
 
 ###Frequent problems
 **I'm not getting messages!**
+
 Check you are on the same WiFi network *and* the same subnet. Also check that your firewall is not blocking port 8946 and 1501.
+
 **I get _____ error!**
+
 Leave a bug report on this GitHub page.
