@@ -27,7 +27,7 @@ while 1:
 		if data[1] == sys.argv[1]:
 			msg = data[3]
 			sender = data[2]
-			os.system("zenity --info --title='Message from: "+str(sender)+"' --text='"+str(msg)+"'")
+			os.system('zenity --info --title="Message from: '+str(sender)+'" --text="'+str(msg)+'"')
 			reply = subprocess.check_output("echo `zenity --entry --title='Reply to "+sender+"' --text='Enter your reply:' --ok-label='Send'`", shell=True)
 			if reply != "\n":
 				reply = reply.rstrip("\r\n")
