@@ -1,6 +1,15 @@
 import os
 
-sender = str(raw_input("Your Username: "))
+if os.path.exists("account.conf") is False:
+	sender = str(raw_input("Your Username: "))
+	accountFile = open('account.conf', 'w+')
+	accountFile.write(sender)
+	accountFile.close()
+else:
+	accountFile = open('account.conf', 'r')
+	sender = accountFile.read()
+	accountFile.close()
+
 target = str(raw_input("Target's Username: "))
 message = str(raw_input("Message: "))
 
