@@ -41,4 +41,4 @@ while 1:
 				messageFile.write(formattedMessage)
 				messageFile.close()
 
-				os.system("python server.py")
+				os.system("python2 server.py")
