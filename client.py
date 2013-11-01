@@ -24,20 +24,20 @@ while 1:
 		pass
 	else:
 		data = data.split("##")
+
+		if os.path.exists('lastmsg.txt', 'r'):
+			lastMessageFile = open('lastmsg.txt', 'r')
+			lastMessage = lastMessageFile.read()
+			lastMessageFile.close
+		else:
+			lastMessage = ""
+
 		if data[1] == sys.argv[1]:
-
-			try:
-				msg
-			except NameError:
-				msg = ""
-
-			try:
-				sender
-			except NameError:
-				sender = ""
-
-			if msg != data[3]:
+			if lastMessage != data[3]:
 				msg = data[3]
+				lastMessageFile = open('lastmsg.txt', 'w+')
+				lastMessageFile.write(msg)
+				lastMessageFile.close()
 				sender = data[2]
 
 				#Clear up special characters in msg to avoid error. Feel free to add escape codes to more special characters here. If the character refuses to be escaped feel free to remove the character from the message.
