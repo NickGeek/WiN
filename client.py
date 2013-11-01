@@ -25,52 +25,64 @@ while 1:
 	else:
 		data = data.split("##")
 		if data[1] == sys.argv[1]:
-			msg = data[3]
-			sender = data[2]
 
-			#Clear up special characters in msg to avoid error. Feel free to add escape codes to more special characters here. If the character refuses to be escaped feel free to remove the character from the message.
-			msg = msg.replace('~', '\~')
-			msg = msg.replace('`', '\`')
-			msg = msg.replace('!', '\!')
-			msg = msg.replace('@', '\@')
-			msg = msg.replace('#', '\#')
-			msg = msg.replace('$', '\$')
-			msg = msg.replace('%', '\%')
-			msg = msg.replace('^', '\^')
-			msg = msg.replace('&', '\&amp;')
-			msg = msg.replace('*', '\*')
-			msg = msg.replace('(', '\(')
-			msg = msg.replace(')', '\)')
-			msg = msg.replace('-', '\-')
-			msg = msg.replace('_', '\_')
-			msg = msg.replace('{', '\{')
-			msg = msg.replace('[', '\[')
-			msg = msg.replace('}', '\}')
-			msg = msg.replace(']', '\]')
-			msg = msg.replace('|', '\|')
-			msg = msg.replace(':', '\:')
-			msg = msg.replace(';', '\;')
-			msg = msg.replace('<', '')
-			msg = msg.replace('>', '')
-			msg = msg.replace('?', '\?')
-			msg = msg.replace('/', '\/')
-			msg = msg.replace('+', '\+')
-			msg = msg.replace('=', '\=')
-			msg = msg.replace("'", '')
-			msg = msg.replace('"', '')
+			try:
+				msg
+			except NameError:
+				msg = ""
 
-			os.system('zenity --info --title="Message from: '+str(sender)+'" --text="'+str(msg)+'"')
-			reply = subprocess.check_output("echo `zenity --entry --title='Reply to "+sender+"' --text='Enter your reply:' --ok-label='Send'`", shell=True)
-			if reply != "\n":
-				reply = reply.rstrip("\r\n")
+			try:
+				sender
+			except NameError:
+				sender = ""
 
-				#Messages are encoded like so "senderProgramVx.x##target##sender##message"
-				#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-				formattedMessage = "linuxVpre.release##"+sender+"##"+sys.argv[1]+"##"+reply
+			if msg != data[3]:
+				msg = data[3]
+				sender = data[2]
 
-				#Write to file
-				messageFile = open('msg.txt', 'w+')
-				messageFile.write(formattedMessage)
-				messageFile.close()
+				#Clear up special characters in msg to avoid error. Feel free to add escape codes to more special characters here. If the character refuses to be escaped feel free to remove the character from the message.
+				msg = msg.replace('~', '\~')
+				msg = msg.replace('`', '\`')
+				msg = msg.replace('!', '\!')
+				msg = msg.replace('@', '\@')
+				msg = msg.replace('#', '\#')
+				msg = msg.replace('$', '\$')
+				msg = msg.replace('%', '\%')
+				msg = msg.replace('^', '\^')
+				msg = msg.replace('&', '\&amp;')
+				msg = msg.replace('*', '\*')
+				msg = msg.replace('(', '\(')
+				msg = msg.replace(')', '\)')
+				msg = msg.replace('-', '\-')
+				msg = msg.replace('_', '\_')
+				msg = msg.replace('{', '\{')
+				msg = msg.replace('[', '\[')
+				msg = msg.replace('}', '\}')
+				msg = msg.replace(']', '\]')
+				msg = msg.replace('|', '\|')
+				msg = msg.replace(':', '\:')
+				msg = msg.replace(';', '\;')
+				msg = msg.replace('<', '')
+				msg = msg.replace('>', '')
+				msg = msg.replace('?', '\?')
+				msg = msg.replace('/', '\/')
+				msg = msg.replace('+', '\+')
+				msg = msg.replace('=', '\=')
+				msg = msg.replace("'", '')
+				msg = msg.replace('"', '')
 
-				os.system("python2 server.py")
+				os.system('zenity --info --title="Message from: '+str(sender)+'" --text="'+str(msg)+'"')
+				reply = subprocess.check_output("echo `zenity --entry --title='Reply to "+sender+"' --text='Enter your reply:' --ok-label='Send'`", shell=True)
+				if reply != "\n":
+					reply = reply.rstrip("\r\n")
+
+					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
+					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
+					formattedMessage = "linuxVpre.release##"+sender+"##"+sys.argv[1]+"##"+reply
+
+					#Write to file
+					messageFile = open('msg.txt', 'w+')
+					messageFile.write(formattedMessage)
+					messageFile.close()
+
+					os.system("python2 server.py")

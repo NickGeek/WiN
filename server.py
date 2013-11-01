@@ -15,5 +15,10 @@ messageFileText = messageFile.read()
 messageFile.close()
 os.system("rm msg.txt")
 
-sock.sendto(messageFileText, (MCAST_ADDR,MCAST_PORT) )
+#Send 50 times as a temporary fix until TCP is put in
+loop = 0
+
+while loop <= 50:
+	sock.sendto(messageFileText, (MCAST_ADDR,MCAST_PORT) )
+	loop += 1
 sock.close()
