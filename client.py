@@ -25,7 +25,7 @@ while 1:
 	else:
 		data = data.split("##")
 
-		if os.path.exists('lastmsg.txt', 'r'):
+		if os.path.exists('lastmsg.txt'):
 			lastMessageFile = open('lastmsg.txt', 'r')
 			lastMessage = lastMessageFile.read()
 			lastMessageFile.close
