@@ -27,6 +27,38 @@ while 1:
 		if data[1] == sys.argv[1]:
 			msg = data[3]
 			sender = data[2]
+
+			#Clear up special characters in msg to avoid error. Feel free to add escape codes to more special characters here. If the character refuses to be escaped feel free to remove the character from the message.
+			msg = msg.replace('~', '\~')
+			msg = msg.replace('`', '\`')
+			msg = msg.replace('!', '\!')
+			msg = msg.replace('@', '\@')
+			msg = msg.replace('#', '\#')
+			msg = msg.replace('$', '\$')
+			msg = msg.replace('%', '\%')
+			msg = msg.replace('^', '\^')
+			msg = msg.replace('&', '\&amp;')
+			msg = msg.replace('*', '\*')
+			msg = msg.replace('(', '\(')
+			msg = msg.replace(')', '\)')
+			msg = msg.replace('-', '\-')
+			msg = msg.replace('_', '\_')
+			msg = msg.replace('{', '\{')
+			msg = msg.replace('[', '\[')
+			msg = msg.replace('}', '\}')
+			msg = msg.replace(']', '\]')
+			msg = msg.replace('|', '\|')
+			msg = msg.replace(':', '\:')
+			msg = msg.replace(';', '\;')
+			msg = msg.replace('<', '')
+			msg = msg.replace('>', '')
+			msg = msg.replace('?', '\?')
+			msg = msg.replace('/', '\/')
+			msg = msg.replace('+', '\+')
+			msg = msg.replace('=', '\=')
+			msg = msg.replace("'", '')
+			msg = msg.replace('"', '')
+
 			os.system('zenity --info --title="Message from: '+str(sender)+'" --text="'+str(msg)+'"')
 			reply = subprocess.check_output("echo `zenity --entry --title='Reply to "+sender+"' --text='Enter your reply:' --ok-label='Send'`", shell=True)
 			if reply != "\n":
