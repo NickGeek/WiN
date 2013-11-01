@@ -1,15 +1,8 @@
 import os
+import subprocess
 
-if os.path.exists("account.conf") is False:
-	sender = str(raw_input("Your Username: "))
-	accountFile = open('account.conf', 'w+')
-	accountFile.write(sender)
-	accountFile.close()
-else:
-	accountFile = open('account.conf', 'r')
-	sender = accountFile.read()
-	accountFile.close()
-
+sender = subprocess.check_output("echo $USER", shell=True)
+sender = sender.rstrip()
 target = str(raw_input("Target's Username: "))
 message = str(raw_input("Message: "))
 
@@ -22,4 +15,4 @@ messageFile = open('msg.txt', 'w+')
 messageFile.write(formattedMessage)
 messageFile.close()
 
-os.system("python2 server.py")
+os.system("python server.py")

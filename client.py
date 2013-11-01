@@ -15,6 +15,8 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 255)
 status = sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(MCAST_ADDR) + socket.inet_aton(ANY))
 sock.setblocking(0)
 ts = time.time()
+username = subprocess.check_output("echo $USER", shell=True)
+username = username.rstrip()
 
 #Listen and act
 while 1:
@@ -32,7 +34,7 @@ while 1:
 		else:
 			lastMessage = ""
 
-		if data[1] == sys.argv[1]:
+		if data[1] == username:
 			if lastMessage != data[3]:
 				msg = data[3]
 				lastMessageFile = open('lastmsg.txt', 'w+')
@@ -78,11 +80,11 @@ while 1:
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "linuxVpre.release##"+sender+"##"+sys.argv[1]+"##"+reply
+					formattedMessage = "linuxVpre.release##"+sender+"##"+username+"##"+reply
 
 					#Write to file
 					messageFile = open('msg.txt', 'w+')
 					messageFile.write(formattedMessage)
 					messageFile.close()
 
-					os.system("python2 server.py")
+					os.system("python server.py")
