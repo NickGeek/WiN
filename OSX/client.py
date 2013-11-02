@@ -42,40 +42,13 @@ while 1:
 				lastMessageFile.close()
 				sender = data[2]
 
-				#Clear up special characters in msg to avoid error. Feel free to add escape codes to more special characters here. If the character refuses to be escaped feel free to remove the character from the message.
-				msg = msg.replace('~', '\~')
-				msg = msg.replace('`', '\`')
-				msg = msg.replace('!', '\!')
-				msg = msg.replace('@', '\@')
-				msg = msg.replace('#', '\#')
-				msg = msg.replace('$', '\$')
-				msg = msg.replace('%', '\%')
-				msg = msg.replace('^', '\^')
-				msg = msg.replace('&', '\&amp;')
-				msg = msg.replace('*', '\*')
-				msg = msg.replace('(', '\(')
-				msg = msg.replace(')', '\)')
-				msg = msg.replace('-', '\-')
-				msg = msg.replace('_', '\_')
-				msg = msg.replace('{', '\{')
-				msg = msg.replace('[', '\[')
-				msg = msg.replace('}', '\}')
-				msg = msg.replace(']', '\]')
-				msg = msg.replace('|', '\|')
-				msg = msg.replace(':', '\:')
-				msg = msg.replace(';', '\;')
-				msg = msg.replace('<', '')
-				msg = msg.replace('>', '')
-				msg = msg.replace('?', '\?')
-				msg = msg.replace('/', '\/')
-				msg = msg.replace('+', '\+')
-				msg = msg.replace('=', '\=')
-				msg = msg.replace("'", '')
-				msg = msg.replace('"', '')
+				msg = msg.rstrip()
 
-				os.system('zenity --info --title="Message from: '+str(sender)+'" --text="'+str(msg)+'"')
-				reply = subprocess.check_output("echo `zenity --entry --title='Reply to "+sender+"' --text='Enter your reply:' --ok-label='Send'`", shell=True)
-				if reply != "\n":
+				os.system('./CocoaDialog.app/Contents/MacOS/CocoaDialog bubble --title "Message from: '+str(sender)+'" --text "'+str(msg)+'" --icon "globe" --timeout 1.5')
+				reply = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "Reply to nick" --informative-text "Enter your reply:" --button1 "Send" --button2 "Cancel"', shell=True)
+				reply = reply.split('\n')
+				if reply[1] != "":
+					reply = reply[1]
 					reply = reply.rstrip("\r\n")
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"

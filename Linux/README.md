@@ -18,7 +18,15 @@ To send a message run "python send.py" and fill out your desired username, the t
 Run "python client.py *myusername*"
 
 ###What do I need to run this?
-Currently WiN is only avalible on GNU/Linux. It requires Python 2.7 and Zenity to run.
+**WiN for GNU/Linux**
+
+WiN for GNU/Linux requires:
+* Python 2.7
+* Zenity
+
+**WiN for Mac OS X**
+WiN for Mac OS X requires:
+* Python 2.7
 
 ###Frequent problems
 **I'm not getting messages!**
