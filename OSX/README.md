@@ -25,6 +25,7 @@ WiN for GNU/Linux requires:
 * Zenity
 
 **WiN for Mac OS X**
+
 WiN for Mac OS X requires:
 * Python 2.7
 
