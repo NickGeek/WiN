@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="java.net.MulticastSocket"/>
-<fullyQualifiedTypeName name="java.net.DatagramPacket"/>
-<fullyQualifiedTypeName name="java.net.InetAddress"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
-</qualifiedTypeNameHistroy>
