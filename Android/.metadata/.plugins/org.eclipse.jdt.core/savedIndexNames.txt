@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+/home/nick/Programming/WiN/Android/.metadata/.plugins/org.eclipse.jdt.core
+1165347587.index
+4149070147.index
+2512249912.index

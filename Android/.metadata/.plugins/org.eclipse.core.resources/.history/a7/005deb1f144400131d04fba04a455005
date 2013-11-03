@@ -1,0 +1,31 @@
+package nz.net.win;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        //Grab a mcast lock... mmm, delicious
+        WifiManager wifi = (WifiManager)getSystemService( Context.WIFI_SERVICE );
+        if(wifi != null)
+        {
+            WifiManager.MulticastLock lock = wifi.createMulticastLock("WifiDevices");
+            lock.acquire();
+        }
+        
+        //Get the message to send
+        SharedPreferences sprefs = this.getSharedPreferences("com.example.app", Context.MODE_PRIVATE);
+        
+        //Start Multicast
+        Thread sendMulticast = new Thread(new WiNServer());
+        sendMulticast.start();
+    }
+}
