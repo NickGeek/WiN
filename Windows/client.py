@@ -15,7 +15,7 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 255)
 status = sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, socket.inet_aton(MCAST_ADDR) + socket.inet_aton(ANY))
 sock.setblocking(0)
 ts = time.time()
-username = subprocess.check_output("echo $USER", shell=True)
+username = subprocess.check_output('echo %username%', shell=True)
 username = username.rstrip()
 
 #Listen and act
@@ -44,7 +44,7 @@ while 1:
 
 				msg = msg.rstrip()
 
-				os.system('./CocoaDialog.app/Contents/MacOS/CocoaDialog bubble --title "Message from: '+str(sender)+'" --text "'+str(msg)+'" --icon "globe" --timeout 1.5')
+				os.system('cscript msgbox.vbs "'+str(msg)+'" '+str(sender)+'"')
 				reply = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "Reply to nick" --informative-text "Enter your reply:" --button1 "Send" --button2 "Cancel"', shell=True)
 				reply = reply.split('\n')
 				if reply[1] != "":
@@ -53,7 +53,7 @@ while 1:
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "osxVpre.release##"+sender+"##"+username+"##"+reply
+					formattedMessage = "linuxVpre.release##"+sender+"##"+username+"##"+reply
 
 					#Write to file
 					messageFile = open('msg.txt', 'w+')
