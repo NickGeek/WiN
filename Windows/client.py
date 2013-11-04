@@ -45,19 +45,20 @@ while 1:
 				msg = msg.rstrip()
 
 				os.system('cscript msgbox.vbs "'+str(msg)+'" '+str(sender)+'"')
-				reply = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "Reply to nick" --informative-text "Enter your reply:" --button1 "Send" --button2 "Cancel"', shell=True)
+				pause 1
+				reply = subprocess.check_output('cscript replybox.vbs "'+str(sender)+'"', shell=True)
 				reply = reply.split('\n')
-				if reply[1] != "":
-					reply = reply[1]
+				if reply[3] != "" or reply[3] != '\r':
+					reply = reply[3]
 					reply = reply.rstrip("\r\n")
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "linuxVpre.release##"+sender+"##"+username+"##"+reply
+					formattedMessage = "windowsVpre.release##"+sender+"##"+username+"##"+reply
 
 					#Write to file
 					messageFile = open('msg.txt', 'w+')
 					messageFile.write(formattedMessage)
 					messageFile.close()
 
-					os.system("python server.py")
+					os.system("python.exe server.py")
