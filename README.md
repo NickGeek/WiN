@@ -11,11 +11,11 @@ NOTE: This is still in super early development so expect everything to change.
 
 **Sending a message**
 
-To send a message run "python send.py" and fill out your desired username, the target's username and the message.
+To send a message run "python send.py" (or "python.exe send.py" on Windows) and fill out the target's username and the message.
 
 **Receiving messages**
 
-Run "python client.py *myusername*"
+Run "python client.py" (or "python.exe client.py" on Windows).
 
 ###What do I need to run this?
 **WiN for GNU/Linux**
