@@ -45,7 +45,6 @@ while 1:
 				msg = msg.rstrip()
 
 				os.system('cscript msgbox.vbs "'+str(msg)+'" '+str(sender)+'"')
-				pause 1
 				reply = subprocess.check_output('cscript replybox.vbs "'+str(sender)+'"', shell=True)
 				reply = reply.split('\n')
 				if reply[3] != "" or reply[3] != '\r':
