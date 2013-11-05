@@ -11,11 +11,11 @@ NOTE: This is still in super early development so expect everything to change.
 
 **Sending a message**
 
-To send a message run "python send.py" and fill out your desired username, the target's username and the message.
+To send a message run "python send.py" (or "python.exe send.py" on Windows) and fill out the target's username and the message.
 
 **Receiving messages**
 
-Run "python client.py *myusername*"
+Run "python client.py" (or "python.exe client.py" on Windows).
 
 ###What do I need to run this?
 **WiN for GNU/Linux**
@@ -29,6 +29,18 @@ WiN for GNU/Linux requires:
 WiN for Mac OS X requires:
 * Python 2.7
 
+**WiN for Windows**
+
+WiN for Windows requires:
+* Windows XP or later
+* *Note: No install of python is required. WiN for Windows comes with a standalone version of Python 2.7.5 from http://www.orbitals.com/programs/pyexe.html*
+
+**WiN for Android**
+
+WiN for Android requires:
+* A device that supports multicast (most devices released with android 3.0 or higher support this)
+* Android 4.0 or higher
+
 ###Frequent problems
 **I'm not getting messages!**
 
@@ -37,3 +49,7 @@ Check you are on the same WiFi network *and* the same subnet. Also check that yo
 **I get _____ error!**
 
 Leave a bug report on this GitHub page.
+
+**Windows tells me I need to allow python.exe to access the network!**
+
+Allow it. This is required for WiN to communicate.

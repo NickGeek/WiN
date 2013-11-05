@@ -53,7 +53,7 @@ while 1:
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "linuxVpre.release##"+sender+"##"+username+"##"+reply
+					formattedMessage = "osxVpre.release##"+sender+"##"+username+"##"+reply
 
 					#Write to file
 					messageFile = open('msg.txt', 'w+')
