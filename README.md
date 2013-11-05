@@ -53,3 +53,6 @@ Leave a bug report on this GitHub page.
 **Windows tells me I need to allow python.exe to access the network!**
 
 Allow it. This is required for WiN to communicate.
+
+###How can I help
+Currently the Android app requires the most work. You'll see a few //TODO comments in the code. If you could help do any of those it would be amazing.
