@@ -45,7 +45,7 @@ while 1:
 				msg = msg.rstrip()
 
 				os.system('./CocoaDialog.app/Contents/MacOS/CocoaDialog bubble --title "Message from: '+str(sender)+'" --text "'+str(msg)+'" --icon "globe" --timeout 1.5')
-				reply = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "Reply to nick" --informative-text "Enter your reply:" --button1 "Send" --button2 "Cancel"', shell=True)
+				reply = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "Reply to '+str(msg)+'" --informative-text "Enter your reply:" --button1 "Send" --button2 "Cancel"', shell=True)
 				reply = reply.split('\n')
 				if reply[1] != "":
 					reply = reply[1]
