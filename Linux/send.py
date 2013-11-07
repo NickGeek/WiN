@@ -3,20 +3,28 @@ import subprocess
 
 sender = subprocess.check_output("echo $USER", shell=True)
 sender = sender.rstrip()
-target = str(raw_input("Target's Username: "))
-message = str(raw_input("Message: "))
+target = subprocess.check_output("echo `zenity --entry --title='WiN' --text='Recipient:' --ok-label='Next'`", shell=True)
+target = target.rstrip('\r\n')
 
-#Make sure the message isn't blank
-if message != "" and sender != "" and target != "":
-	#Messages are encoded like so "senderProgramVx.x##target##sender##message"
-	#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-	formattedMessage = "linuxVpre.release##"+target+"##"+sender+"##"+message
+#Did the user cancel?
+if target == "":
+	exit()
 
-	#Write to file
-	messageFile = open('msg.txt', 'w+')
-	messageFile.write(formattedMessage)
-	messageFile.close()
+#message = str(raw_input("Message: "))
+message = subprocess.check_output("echo `zenity --entry --title='WiN' --text='Message:' --ok-label='Send'`", shell=True)
+message = message.rstrip('\r\n')
 
-	os.system("python server.py")
-else:
-	print "Error: Please fill out all the fields."
+#Did the user cancel?
+if message == "":
+	exit()
+
+#Messages are encoded like so "senderProgramVx.x##target##sender##message"
+#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
+formattedMessage = "linuxVpre.release##"+target+"##"+sender+"##"+message
+
+#Write to file
+messageFile = open('msg.txt', 'w+')
+messageFile.write(formattedMessage)
+messageFile.close()
+
+os.system("python server.py")
