@@ -87,4 +87,5 @@ while 1:
 					messageFile.write(formattedMessage)
 					messageFile.close()
 
-					os.system("python server.py")
+					pyVersion = subprocess.check_output("sh pycommand.sh", shell=True)
+					os.system(pyVersion + " server.py")
