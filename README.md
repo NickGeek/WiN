@@ -3,12 +3,32 @@ WiN
 
 WiN (Wireless Inter-Home Network) is designed to do what crowd-funding did for projects but for mobile networks. Uses of this could be in businesses to replace wired phone extensions, communications when cellular towers and the Internet is down or in place of a pager at a hospital. It could even be used to call your son to dinner! It doesn't require an Internet connection or traditional cellular coverage so it can be completely free.
 
+###How can I install this?
+Currently the GNU/Linux version is the only one with an installer as it is the only one that has been released. You can install that by running the following command in the terminal (accessed by pressing ctrl + alt + t):
+
+````wget -q -O - http://win.net.nz/content/linuxInstaller.sh | bash````
+
+or if you prefer cURL:
+
+````curl http://win.net.nz/content/linuxInstaller.sh | bash````
+
+or you could just download the installer (http://win.net.nz/content/linuxInstaller.sh) and run it yourself.
+
+With all the other versions just download the source code and run it from there.
+
 ###Where are you in development?
 You can see everything and vote/comment at our public Trello here: https://trello.com/b/xTcyUVmY
 
 ###How do I use this as of now?
 NOTE: This is still in super early development so expect everything to change.
 
+####Release versions:
+
+**Sending a message**
+
+To send a message click on the WiN icon that would of been added to your desktop during installation.
+
+####Pre-release versions:
 **Sending a message**
 
 To send a message run "python send.py" (or "python.exe send.py" on Windows) and fill out the target's username and the message.
