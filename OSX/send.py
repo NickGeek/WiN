@@ -21,8 +21,11 @@ def send(message):
 
 sender = subprocess.check_output("echo $USER", shell=True)
 sender = sender.rstrip()
-target = str(raw_input("Target's Username: "))
+if target.rstrip('\r\n') == "":
+	exit()
 message = str(raw_input("Message: "))
+if message.rstrip('\r\n') == "":
+	exit()
 
 #Messages are encoded like so "senderProgramVx.x##target##sender##message"
 #Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
