@@ -14,6 +14,8 @@ or if you prefer cURL:
 
 or you could just download the installer (http://win.net.nz/content/linuxInstaller.sh) and run it yourself.
 
+If you wish to run this without root just change "http://win.net.nz/content/linuxInstaller.sh" to "http://win.net.nz/content/linuxInstallerNoRoot.sh". Please note that not all features will work without installing with root access.
+
 With all the other versions just download the source code and run it from there.
 
 ###Where are you in development?
