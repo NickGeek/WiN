@@ -4,6 +4,23 @@ import os
 import sys
 import subprocess
 
+def send(message):
+	ANY = '0.0.0.0'
+	SENDERPORT=1501
+	MCAST_ADDR = '224.168.2.9'
+	MCAST_PORT = 8946
+	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+	sock.bind((ANY,SENDERPORT))
+	sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 255)
+
+	#Send 50 times as a temporary fix until TCP is put in
+	loop = 0
+
+	while loop <= 50:
+		sock.sendto(message, (MCAST_ADDR,MCAST_PORT) )
+		loop += 1
+	sock.close()
+
 #Connect
 ANY = '0.0.0.0'
 MCAST_ADDR = '224.168.2.9'
@@ -82,10 +99,5 @@ while 1:
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
 					formattedMessage = "linuxVpre.release##"+sender+"##"+username+"##"+reply
 
-					#Write to file
-					messageFile = open('msg.txt', 'w+')
-					messageFile.write(formattedMessage)
-					messageFile.close()
-
-					pyVersion = subprocess.check_output("sh pycommand.sh", shell=True)
-					os.system(pyVersion + " server.py")
+					#Send message
+					send(formattedMessage)
