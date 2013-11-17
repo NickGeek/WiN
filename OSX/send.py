@@ -21,6 +21,7 @@ def send(message):
 
 sender = subprocess.check_output("echo $USER", shell=True)
 sender = sender.rstrip()
+target = str(raw_input("Target: "))
 if target.rstrip('\r\n') == "":
 	exit()
 message = str(raw_input("Message: "))
