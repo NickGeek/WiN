@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Comment=A truly open messaging service
+Terminal=false
+Name=WiN
+Exec=sh -c "~/.WiN/WiN"
+Type=Application
+Icon=WiN
+Categories=Internet;Social
