@@ -10,7 +10,7 @@ rm ~/.config/autostart/winclient.desktop 2> /dev/null
 mkdir .WiN
 cd .WiN
 echo "Downloading..."
-wget -q http://win.net.nz/content/linux0-1a.tar.gz
+wget -q http://win.net.nz/content/linux0-1-1b.tar.gz
 tar -xzf linux0-1a.tar.gz
 rm linux0-1a.tar.gz
 chmod +x WiN
