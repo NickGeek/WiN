@@ -21,11 +21,20 @@ def send(message):
 
 sender = subprocess.check_output("echo $USER", shell=True)
 sender = sender.rstrip()
-target = str(raw_input("Target: "))
-if target.rstrip('\r\n') == "":
+target = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "WiN" --informative-text "Recipient:" --button1 "Next" --button2 "Cancel"', shell=True)
+target = target.split('\n')
+target = target[1];
+
+#Did the user cancel?
+if target == "":
 	exit()
-message = str(raw_input("Message: "))
-if message.rstrip('\r\n') == "":
+
+message = subprocess.check_output('./CocoaDialog.app/Contents/MacOS/CocoaDialog inputbox --title "WiN" --informative-text "Message:" --button1 "Send" --button2 "Cancel"', shell=True)
+message = message.split('\n')
+message = message[1];
+
+#Did the user cancel?
+if message == "":
 	exit()
 
 #Messages are encoded like so "senderProgramVx.x##target##sender##message"
