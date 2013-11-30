@@ -12,7 +12,7 @@ cd .WiN
 echo "Downloading..."
 wget -q http://win.net.nz/content/linux0-1-1b.tar.gz
 tar -xzf linux0-1-1b.tar.gz
-rm linux0-1a.tar.gz
+rm linux0-1-1b.tar.gz
 chmod +x WiN
 chmod +x Client
 chmod +x WiN.desktop
