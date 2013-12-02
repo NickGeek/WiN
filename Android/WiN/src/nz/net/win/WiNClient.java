@@ -19,43 +19,45 @@ public class WiNClient implements Runnable {
 		Looper.prepare();
 		MulticastSocket socket;
 		try {
-			//TODO: Do something about Android killing this thread
 			socket = new MulticastSocket(8946);
 			InetAddress group = InetAddress.getByName("224.168.2.9");
 			socket.joinGroup(group);
 			DatagramPacket packet;
-			
-			byte[] buffer = new byte[256];
-			byte  b = '>'; //This character can NEVER be in a WiN message. This is a bad fix but it'll have to do for now.
-			Arrays.fill(buffer,b);
-			packet = new DatagramPacket(buffer, buffer.length);
-			String msg = "";
 			String prevMessage = ">";
 			
-			while(msg != null)
+			while(true)
 			{
+				byte[] buffer = new byte[256];
+				byte  b = '>'; //This character can NEVER be in a WiN message. This is a bad fix but it'll have to do for now.
+				Arrays.fill(buffer,b);
+				packet = new DatagramPacket(buffer, buffer.length);
+				String msg = "";
+				String myusername = MainActivity.username();
+				
 				socket.receive(packet);
 				msg = new String(packet.getData());
+				Log.i("M2K", msg);
 				msg = msg.substring(0, msg.indexOf('>'));
 				String[] messageList = msg.split("##");
-				String myusername = MainActivity.username();
 				String username = messageList[1];
 				String sender = messageList[2];
 				String message = messageList[3];
 				//Log.i("M2K", message);
-				Log.i("M2K", prevMessage);
 				
 				if (username.equals(myusername) && !message.equals(prevMessage)) {
 					Log.i("Message", message + " | From: " + sender);
-					//TODO: Stop other identical messages from being logged.
+					//Stop other identical messages from being logged.
 					prevMessage = message;
+					packet = null;
+					msg = null;
+					messageList = null;
+					username = null;
+					sender = null;
+					message = null;
 					
 					MainActivity.newMessage();
 				}
 			}
-
-			socket.leaveGroup(group);
-			socket.close();
 		} catch (IOException e) {
 		}
 	}

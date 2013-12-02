@@ -1,3 +1,7 @@
+//Add features people should work on below:
+//TODO: Turn the client part of this app into a background service
+//TODO: Notifications on message received
+
 package nz.net.win;
 
 import java.io.IOException;
