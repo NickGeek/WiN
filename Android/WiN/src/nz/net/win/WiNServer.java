@@ -32,7 +32,7 @@ public class WiNServer implements Runnable {
             //Get message to send
             String formattedMessage = MainActivity.formattedMessage();
             
-            int loop = 50;
+            int loop = 0;
             while (loop <= 50) {
                     try
                     {

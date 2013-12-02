@@ -1,27 +1,22 @@
 //Add features people should work on below:
-//TODO: Turn the client part of this app into a background service
-//TODO: Notifications on message received
+//TODO: Turn the client part of this app into a background service or do something to stop android killing it so quickly
 
 package nz.net.win;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.util.Arrays;
-
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
 
 public class MainActivity extends Activity {
 	EditText usernameTxt;
@@ -32,35 +27,14 @@ public class MainActivity extends Activity {
 	static String formattedMessage;
 	SharedPreferences sprefs;
 	static String username;
-	static String[] message = new String[3];
-	/*Handler mHandler = new Handler();
-	MulticastSocket socket;
-	DatagramPacket packet;
-	InetAddress group;
-	byte[] buffer;
-	String msg = "";*/
+	static String[] message = new String[2];
+	static Boolean newMessage = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//Index 0 is if the message is new, index 1 is the sender and index 2 is the message
-		message[0] = "False";
-		message[1] = "";
-		message[2] = "";
-		
-		/*/Set some multicast variables
-		try {
-			socket = new MulticastSocket(8946);
-			group = InetAddress.getByName("224.168.2.9");
-			socket.joinGroup(group);
-			buffer = new byte[256];
-			byte b = '>'; //This character can NEVER be in a WiN message. This is a bad fix but it'll have to do for now.
-			Arrays.fill(buffer,b);
-			packet = new DatagramPacket(buffer, buffer.length);
-		} catch (IOException e1) {
-		}*/
 		//Set variables for layout elements
 		usernameTxt = (EditText)findViewById(R.id.usernameTxt);
 		targetTxt = (EditText)findViewById(R.id.targetTxt);
@@ -76,6 +50,14 @@ public class MainActivity extends Activity {
 			usernameTxt.setText(username);
 		}
 		
+		//Fill out target
+		String target = sprefs.getString("target", null);
+		
+		if (target != null) {
+			targetTxt.setText(target);
+			sprefs.edit().putString("target", "").commit();
+		}
+		
 		//Grab a mcast lock... mmm, delicious
 		WifiManager wifi = (WifiManager)getSystemService( Context.WIFI_SERVICE );
 		if(wifi != null)
@@ -83,26 +65,6 @@ public class MainActivity extends Activity {
 			WifiManager.MulticastLock lock = wifi.createMulticastLock("WifiDevices");
 			lock.acquire();
 		}
-		
-		Thread thread = new Thread(new Runnable(){
-		    @Override
-		    public void run() {
-		        //try {
-		        	//int loop = 1;
-					//while (loop == 1) {
-						//if (message[0].equalsIgnoreCase("True")) {
-							Log.i("M2K", "OMG");
-							//Toast.makeText(getApplicationContext(), "New message!", Toast.LENGTH_SHORT).show();
-							//displayToast();
-							//message[0] = "False";
-						//}
-					//}
-		        //} catch (Exception e) {
-		        //}
-		    }
-		});
-		
-		thread.start();
 		
 		//Client
 		startBtn.setOnClickListener(
@@ -132,7 +94,7 @@ public class MainActivity extends Activity {
 						
 						//Messages are encoded like so "senderProgramVx.x##target##sender##message"
 						//Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-						formattedMessage = "androidVpre.release##"+targetTxt.getText().toString()+"##"+usernameTxt.getText().toString()+"##"+msgTxt.getText().toString();
+						formattedMessage = "androidV0.1##"+targetTxt.getText().toString()+"##"+usernameTxt.getText().toString()+"##"+msgTxt.getText().toString();
 						
 						//Clear mesage textbox
 						msgTxt.setText("");
@@ -146,15 +108,32 @@ public class MainActivity extends Activity {
 					}
 				}
 			});
+		
+		//Notifications
+		Runnable notificationLoop = new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					while (newMessage) {
+						//Switch over to the UI thread to show the notification
+						runOnUiThread(new Runnable() {
+							public void run() {
+								//Toast.makeText(getApplicationContext(), message[0] + " -" + message[1], Toast.LENGTH_LONG).show();
+								showNotification();
+								sprefs.edit().putString("target", message[0]).commit();
+							}
+						});
+						
+						newMessage = false;
+					}
+				}
+			}
+		};
+		
+		//Run the notification thread
+		Thread notificationThread = new Thread(notificationLoop);
+		notificationThread.start();
 	}
-	
-	/*public void onDestroy() {
-		try {
-			socket.leaveGroup(group);
-			socket.close();
-		} catch (IOException e) {
-		}
-	}*/
 
 	public static String formattedMessage() {
 		return formattedMessage;
@@ -164,12 +143,39 @@ public class MainActivity extends Activity {
 		return username;
 	}
 	
-	public static void newMessage() {
-		message[0] = "True";
+	public static void newMessage(String sender, String msg) {
+		//Index 0 is the sender and index 1 is the message
+		message[0] = sender;
+		message[1] = msg;
+		
+		//Clear out the variables to avoid issues
+		sender = null;
+		msg = null;
+		
+		newMessage = true;
 		return;
 	}
 	
-	public void displayToast() {
-		Toast.makeText(getApplicationContext(), "New message!!", Toast.LENGTH_SHORT).show();
+	public void showNotification() {
+		NotificationCompat.Builder mBuilder =
+		        new NotificationCompat.Builder(this)
+		        .setSmallIcon(R.drawable.ic_launcher)
+		        .setContentTitle(message[0])
+		        .setContentText(message[1]);
+		Intent resultIntent = new Intent(this, MainActivity.class);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		stackBuilder.addParentStack(MainActivity.class);
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent =
+		        stackBuilder.getPendingIntent(
+		            0,
+		            PendingIntent.FLAG_UPDATE_CURRENT
+		        );
+		mBuilder.setContentIntent(resultPendingIntent);
+		NotificationManager mNotificationManager =
+		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		//I'm setting this to false for now because there is currently not a setup to display the message once the notification is closed
+		mBuilder.setAutoCancel(false);
+		mNotificationManager.notify(1, mBuilder.build());
 	}
 }

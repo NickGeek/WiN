@@ -7,7 +7,6 @@ import java.net.MulticastSocket;
 import java.util.Arrays;
 
 import android.os.Looper;
-import android.util.Log;
 
 public class WiNClient implements Runnable {
 	public WiNClient() {
@@ -36,26 +35,26 @@ public class WiNClient implements Runnable {
 				
 				socket.receive(packet);
 				msg = new String(packet.getData());
-				Log.i("M2K", msg);
 				msg = msg.substring(0, msg.indexOf('>'));
 				String[] messageList = msg.split("##");
 				String username = messageList[1];
 				String sender = messageList[2];
 				String message = messageList[3];
-				//Log.i("M2K", message);
 				
 				if (username.equals(myusername) && !message.equals(prevMessage)) {
-					Log.i("Message", message + " | From: " + sender);
+					//Tell the UI thread to display a notification
+					MainActivity.newMessage(sender, message);
+					
 					//Stop other identical messages from being logged.
 					prevMessage = message;
+					
+					//Clear the variables to stop merging of messages "Goodare you?"
 					packet = null;
 					msg = null;
 					messageList = null;
 					username = null;
 					sender = null;
 					message = null;
-					
-					MainActivity.newMessage();
 				}
 			}
 		} catch (IOException e) {
