@@ -37,6 +37,7 @@ username = username.rstrip()
 
 #Listen and act
 while 1:
+	time.sleep(0.1)
 	try:
 		data, addr = sock.recvfrom(1024)
 	except socket.error, e:
