@@ -21,12 +21,17 @@ def send(message):
 
 sender = subprocess.check_output('echo %username%', shell=True)
 sender = sender.rstrip()
-target = str(raw_input("Target's Username: "))
-if target.rstrip('\r\n') == "":
-	exit()
-message = str(raw_input("Message: "))
-if message.rstrip('\r\n') == "":
-	exit()
+target = subprocess.check_output('cscript textbox.vbs "WiN" "Recipient:"', shell=True)
+target = target.split('\n')
+target = target[3].rstrip('\r\n')
+if target == "":
+	sys.exit()
+
+message = subprocess.check_output('cscript textbox.vbs "WiN" "Message:"', shell=True)
+message = message.split('\n')
+message = message[3].rstrip('\r\n')
+if message == "":
+	sys.exit()
 
 #Messages are encoded like so "senderProgramVx.x##target##sender##message"
 #Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"

@@ -4,6 +4,8 @@ import os
 import sys
 import subprocess
 
+print("This little window is running your connection to the WiN network.\nFeel free to minimise it but don't close it or you won't get any messages.")
+
 def send(message):
 	ANY = '0.0.0.0'
 	SENDERPORT=1501
@@ -62,12 +64,10 @@ while 1:
 				msg = msg.rstrip()
 
 				os.system('cscript msgbox.vbs "'+str(msg)+'" '+str(sender)+'"')
-				reply = subprocess.check_output('cscript replybox.vbs "'+str(sender)+'"', shell=True)
+				reply = subprocess.check_output('cscript textbox.vbs "Reply to '+str(sender)+'" "Enter your reply:"', shell=True)
 				reply = reply.split('\n')
-				if reply[3] != "" or reply[3] != '\r':
-					reply = reply[3]
-					reply = reply.rstrip("\r\n")
-
+				reply = reply[3].rstrip('\r\n')
+				if reply != "":
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
 					formattedMessage = "windowsVpre.release##"+sender+"##"+username+"##"+reply
