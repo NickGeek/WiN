@@ -1,1 +1,1 @@
-msgbox"WiN has been installed",0,"WiN"
+msgbox"WiN has been installed.",0,"WiN"

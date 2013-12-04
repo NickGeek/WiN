@@ -35,7 +35,7 @@ if message == "":
 
 #Messages are encoded like so "senderProgramVx.x##target##sender##message"
 #Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-formattedMessage = "windowsVpre.release##"+target+"##"+sender+"##"+message
+formattedMessage = "windowsV0.1##"+target+"##"+sender+"##"+message
 
 #Send message
 send(formattedMessage)

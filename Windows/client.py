@@ -70,7 +70,7 @@ while 1:
 				if reply != "":
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "windowsVpre.release##"+sender+"##"+username+"##"+reply
+					formattedMessage = "windowsV0.1##"+sender+"##"+username+"##"+reply
 
 					#Send message
 					send(formattedMessage)
