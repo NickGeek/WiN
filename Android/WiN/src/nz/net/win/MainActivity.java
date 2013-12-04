@@ -114,7 +114,15 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				while (true) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
 					while (newMessage) {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+						}
 						//Switch over to the UI thread to show the notification
 						runOnUiThread(new Runnable() {
 							public void run() {

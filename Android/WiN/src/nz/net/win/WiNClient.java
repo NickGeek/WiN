@@ -26,6 +26,10 @@ public class WiNClient implements Runnable {
 			
 			while(true)
 			{
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+				}
 				byte[] buffer = new byte[256];
 				byte  b = '>'; //This character can NEVER be in a WiN message. This is a bad fix but it'll have to do for now.
 				Arrays.fill(buffer,b);
