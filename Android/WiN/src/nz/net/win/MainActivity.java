@@ -14,7 +14,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
@@ -188,9 +187,15 @@ public class MainActivity extends Activity {
 		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		//I'm setting this to false for now because there is currently not a setup to display the message once the notification is closed
 		mBuilder.setAutoCancel(false);
+		
+		//Sound and vibration
 		Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		mBuilder.setSound(sound);
 		mBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+		
+		//Expandable notification
+		mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message[1]));
+		
 		mNotificationManager.notify(1, mBuilder.build());
 	}
 }
