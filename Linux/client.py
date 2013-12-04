@@ -37,6 +37,7 @@ username = username.rstrip()
 
 #Listen and act
 while 1:
+	time.sleep(0.1)
 	try:
 		data, addr = sock.recvfrom(1024)
 	except socket.error, e:
@@ -97,7 +98,7 @@ while 1:
 
 					#Messages are encoded like so "senderProgramVx.x##target##sender##message"
 					#Example: "linuxV1.8##person87##NickGeek##Hey mate! What do you think of this WiN thing?"
-					formattedMessage = "linuxV0.1##"+sender+"##"+username+"##"+reply
+					formattedMessage = "linuxV1.0##"+sender+"##"+username+"##"+reply
 
 					#Send message
 					send(formattedMessage)

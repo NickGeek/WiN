@@ -1,4 +1,4 @@
-#Installer for WiN 0.1a (Linux)
+#Installer for WiN (Linux)
 clear
 echo "Setting up..."
 cd
@@ -11,9 +11,9 @@ sudo rm /usr/share/applications/WiN.desktop 2> /dev/null
 mkdir .WiN
 cd .WiN
 echo "Downloading..."
-wget -q http://win.net.nz/content/linux0-1-1b.tar.gz
-tar -xzf linux0-1-1b.tar.gz
-rm linux0-1-1b.tar.gz
+wget -q -O win.tar.gz http://win.net.nz/content/linux1-0.tar.gz
+tar -xzf win.tar.gz
+rm win.tar.gz
 chmod +x WiN
 chmod +x Client
 chmod +x WiN.desktop
