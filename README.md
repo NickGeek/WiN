@@ -4,23 +4,9 @@ WiN
 WiN (Wireless Inter-Home Network) is designed to do what crowd-funding did for projects but for mobile networks. Uses of this could be in businesses to replace wired phone extensions, communications when cellular towers and the Internet is down or in place of a pager at a hospital. It could even be used to call your son to dinner! It doesn't require an Internet connection or traditional cellular coverage so it can be completely free.
 
 ###How can I install this?
-####Mac OS X
-You can download WiN for OS X here: http://win.net.nz/content/osx0-1a.zip
+To install a release version of WiN click the releases tab near the top of the page and find the version of WiN that will run on your device.
 
-####GNU/Linux
-You can install that by running the following command in the terminal (accessed by pressing ctrl + alt + t):
-
-````wget -q -O - http://win.net.nz/content/linuxInstaller.sh | bash````
-
-or if you prefer cURL:
-
-````curl http://win.net.nz/content/linuxInstaller.sh | bash````
-
-or you could just download the installer (http://win.net.nz/content/linuxInstaller.sh) and run it yourself.
-
-If you wish to run this without root just change "http://win.net.nz/content/linuxInstaller.sh" to "http://win.net.nz/content/linuxInstallerNoRoot.sh". Please note that not all features will work without installing with root access.
-
-With all the other versions just download the source code and run it from there.
+If you want to be on the cutting edge you can download a development version by either cloning this git repo or clicking the "Download ZIP" button on the side-bar. If you are using a development version you will have to run WiN manually. Instructions for that are below.
 
 ###Where are you in development?
 You can see everything and vote/comment at our public Trello here: https://trello.com/b/xTcyUVmY
@@ -36,7 +22,7 @@ To send a message click on the WiN icon that would of been added to your applica
 
 **Receiving messages**
 
-On GNU/Linux you don't have to do  anything, you'll get messages automatically. On Mac OS X you just need to open WiN (you don't have to send a message, just hit cancel) and it'll start checking for messages in the background.
+On GNU/Linux you don't have to do  anything, you'll get messages automatically. On Mac OS X you just need to open WiN (you don't have to send a message, just hit cancel) and it'll start checking for messages in the background. On Windows you shouldn't have to do anything.
 
 ####Development versions:
 **Sending a message**
@@ -74,7 +60,7 @@ WiN for Android requires:
 ###Frequent problems
 **I'm not getting messages!**
 
-Check you are on the same WiFi network *and* the same subnet. Also check that your firewall is not blocking port 8946 and 1501.
+Check you are on the same WiFi network *and* the same subnet. Also check that your firewall is not blocking port 8946 and 1501. You can also try starting the client again (on Windows go Start > WiN > Win Client, on Mac OS X just open WiN and on GNU/Linux cd into ".WiN" and run "./Client").
 
 **I get _____ error!**
 
@@ -84,5 +70,9 @@ Leave a bug report on this GitHub page.
 
 Allow it. This is required for WiN to communicate.
 
+**Are there any viruses in WiN**
+
+Nope and if you don't trust me you can have a look at all the code yourself on this page.
+
 ###How can I help
-Currently the Android app requires the most work. You'll see a few //TODO comments in the code. If you could help do any of those it would be amazing.
+The main thing you can do is spread the word, the more hands on thing you can do is look at the "Issues" page on this website and see if you can fix any of those. Also you could look at our (Trello) and help with some of the tasks on there.
