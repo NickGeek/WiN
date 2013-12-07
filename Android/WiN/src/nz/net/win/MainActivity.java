@@ -1,6 +1,6 @@
-//Add features people should work on below:
-//TODO: Turn the client part of this app into a background service or do something to stop android killing it so quickly
-
+/*Add features people should work on below:
+* TODO: Turn the client part of this app into a background service or do something to stop android killing it so quickly
+*/
 package nz.net.win;
 
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
@@ -32,6 +33,8 @@ public class MainActivity extends Activity {
 	static String username;
 	static String[] message = new String[2];
 	static Boolean newMessage = false;
+	PowerManager powerManager;
+	PowerManager.WakeLock wakelock;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,11 @@ public class MainActivity extends Activity {
 					}
 				}
 			});
+		
+		//Wakelock
+		powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wakelock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WiN Client");
+		wakelock.acquire();
 		
 		//Notifications
 		Runnable notificationLoop = new Runnable() {
